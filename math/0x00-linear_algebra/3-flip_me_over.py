@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""returns transpose of a 2D matrix"""
+"""determines transpose of a 2D matrix"""
 
 
 def matrix_transpose(matrix):
+    """returns transpose of 2D matrix"""
     newMatrix = []
     rows = len(matrix)
     columns = len(matrix[0])

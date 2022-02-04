@@ -3,6 +3,7 @@
 
 
 def add_arrays(arr1, arr2):
+    """adds two arrays element-wise"""
     new_list = []
 
     if len(arr1) != len(arr2):

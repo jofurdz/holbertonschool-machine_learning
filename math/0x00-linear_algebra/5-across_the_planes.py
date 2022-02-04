@@ -3,6 +3,7 @@
 
 
 def add_matrices2D(mat1, mat2):
+    """adds two matrices elemt-wise"""
     newMatrix = []
     for a, b in zip(mat1, mat2):
         current_list = []
