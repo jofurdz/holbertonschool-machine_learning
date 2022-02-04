@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """returns transpose of a 2D matrix"""
 
-from numpy import transpose, shape
-
 
 def matrix_transpose(matrix):
     newMatrix = []
