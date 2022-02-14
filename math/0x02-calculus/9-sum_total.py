@@ -4,7 +4,7 @@
 
 def summation_i_squared(n):
     """returns summation of i**2 to n"""
-    if n < 1:
+    if type(n) is not int:
         return None
     elif n == 1:
         return 1
