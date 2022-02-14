@@ -4,9 +4,7 @@
 
 def summation_i_squared(n):
     """returns summation of i**2 to n"""
-    if n < 1:
+    if n <= 0 or n is None:
         return None
-    elif n == 1:
-        return 1
     else:
-        return (n**2 + summation_i_squared(n-1))
+        return sum(map(lambda i: i**2, list(range(n + 1))))
