@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""function for summation"""
 
 
 def summation_i_squared(n):
