@@ -5,13 +5,14 @@
 class Poisson():
     """class that represents a poisson distribution"""
     def __init__(self, data=None, lambtha=1.):
+        """initializes class"""
         self.data = data
         self.lambtha = lambtha
-        if not data:
+        if data is None:
             if (lambtha <= 0):
                 raise ValueError("lambtha must be a positive value")
             else:
-                self.data = lambtha
+                self.lambtha = float(lambtha)
         else:
             length = len(data)
             if type(data) is not list:
@@ -22,9 +23,10 @@ class Poisson():
                 total = 0
                 for x in data:
                     total = x + total
-                self.lambtha = float(total / length)
+                self.lambtha = float(sum(data)/len(data))
 
     def pmf(self, k):
+        """returns PMF"""
         e = 2.7182818285
         pmf_numerator = (e ** (self.lambtha * -1) * (self.lambtha ** k))
         pmf_denominator = 1
@@ -35,6 +37,7 @@ class Poisson():
         return pmf_numerator / pmf_denominator
 
     def cdf(self, k):
+        """returns CDF"""
         e = 2.7182818285
         cdf_store = []
         if type(k) is not int:
