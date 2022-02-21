@@ -7,22 +7,17 @@ class Poisson():
     def __init__(self, data=None, lambtha=1.):
         """initializes class"""
         self.data = data
-        self.lambtha = lambtha
         if data is None:
-            if (lambtha <= 0):
-                raise ValueError("lambtha must be a positive value")
+            if lambtha <= 0:
+                raise ValueError('lambtha must be a positive value')
             else:
                 self.lambtha = float(lambtha)
         else:
-            length = len(data)
             if type(data) is not list:
                 raise TypeError("data must be a list")
-            elif length < 2:
+            elif len(data) < 2:
                 raise ValueError("data must contain multiple values")
             else:
-                total = 0
-                for x in data:
-                    total = x + total
                 self.lambtha = float(sum(data)/len(data))
 
     def pmf(self, k):
