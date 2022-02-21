@@ -26,7 +26,7 @@ class Exponential():
         else:
             e = 2.7182818285
             temp = self.lambtha
-            return (temp * e ** -temp * x)
+            return (temp * (e ** (-1 * temp * x)))
 
     def cdf(self, x):
         """returns cdf"""
@@ -35,4 +35,4 @@ class Exponential():
         else:
             e = 2.7182818285
             temp = self.lambtha
-            return (1 - e ** -temp * x)
+            return (1 - (e ** (-1 * temp * x)))
