@@ -18,8 +18,9 @@ class Normal():
                 raise ValueError("data must contain multiple values")
             else:
                 self.mean = sum(data) / len(data)
-                variance = sum([((x - self.mean) ** 2) for x in data]) / len(data)
-                self.stddev  = float(variance ** .5)
+                variance = sum([((x - self.mean) ** 2) for x in data]) \
+                    / len(data)
+                self.stddev = float(variance ** .5)
 
     def z_score(self, x):
         return ((x - self.mean) / self.stddev)
@@ -33,7 +34,3 @@ class Normal():
         wumbo = (1 / (self.stddev * ((2 * pie)) ** .5))
         poopla = (e ** (-.5 * ((x - self.mean) / self.stddev) ** 2))
         return (wumbo * poopla)
-
-    def cdf(self, x):
-        
-        chum = 
