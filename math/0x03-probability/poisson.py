@@ -31,7 +31,7 @@ class Poisson():
         pmf_numerator = (e ** (self.lambtha * -1) * (self.lambtha ** k))
         pmf_denominator = 1
         if type(k) is not int:
-            k = int(key)
+            k = int(k)
         for x in range(1, k + 1):
             pmf_denominator *= x
         return pmf_numerator / pmf_denominator
@@ -41,7 +41,7 @@ class Poisson():
         e = 2.7182818285
         cdf_store = []
         if type(k) is not int:
-            k = int(key)
+            k = int(k)
         for i in range(k + 1):
             cdf_numerator = (e ** (self.lambtha * -1) * (self.lambtha ** i))
             cdf_denominator = 1
