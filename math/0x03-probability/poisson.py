@@ -38,7 +38,7 @@ class Poisson():
         if type(k) is not int:
             k = int(k)
         for i in range(k + 1):
-            cdf_numerator = (e ** (self.lambtha * -1) * (self.lambtha ** i))
+            cdf_numerator = (e ** (-1 * self.lambtha) * (self.lambtha ** i))
             cdf_denominator = 1
             for x in range(1, i + 1):
                 cdf_denominator *= x
