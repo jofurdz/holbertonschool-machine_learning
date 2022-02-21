@@ -23,7 +23,7 @@ class Poisson():
     def pmf(self, k):
         """returns PMF"""
         e = 2.7182818285
-        pmf_numerator = (e ** (self.lambtha * -1) * (self.lambtha ** k))
+        pmf_numerator = (e ** (-1 * self.lambtha) * (self.lambtha ** k))
         pmf_denominator = 1
         if type(k) is not int:
             k = int(k)
