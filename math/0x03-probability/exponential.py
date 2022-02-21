@@ -3,8 +3,9 @@
 
 
 class Exponential():
-    """initializes class Exponential"""
+    """class for exponential distribution"""
     def __init__(self, data=None, lambtha=1.):
+        """initializes class Exponential"""
         if data is None:
             if lambtha <= 0:
                 raise ValueError("lambtha must be a positive value")
@@ -19,6 +20,7 @@ class Exponential():
                 self.lambtha = float(len(data) / sum(data))
 
     def pdf(self, x):
+        """returns pdf"""
         if x < 0:
             return 0
         else:
@@ -27,6 +29,7 @@ class Exponential():
             return (temp * e ** -temp * x)
 
     def cdf(self, x):
+        """returns cdf"""
         if x < 0:
             return 0
         else:
