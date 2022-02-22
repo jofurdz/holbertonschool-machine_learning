@@ -22,14 +22,18 @@ class Poisson():
 
     def pmf(self, k):
         """returns PMF"""
-        e = 2.7182818285
-        pmf_numerator = (e ** (-1 * self.lambtha) * (self.lambtha ** k))
-        pmf_denominator = 1
+
+        if k < 0:
+            return 0
         if type(k) is not int:
             k = int(k)
-        for x in range(1, k + 1):
-            pmf_denominator *= x
-        return pmf_numerator / pmf_denominator
+        else:
+            temp = self.lambtha
+            fact = 1
+            e = 2.7182818285
+            for x in range(k):
+                fact *= (x + 1)
+            return (temp ** k * e ** -temp / fact)
 
     def cdf(self, k):
         """returns CDF"""
