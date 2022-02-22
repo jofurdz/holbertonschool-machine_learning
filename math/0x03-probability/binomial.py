@@ -2,9 +2,6 @@
 """function for binomial distrubution"""
 
 
-from logging.config import valid_ident
-
-
 class Binomial():
     """initializes class Binomial"""
     def __init__(self, data=None, n=1, p=0.5):
