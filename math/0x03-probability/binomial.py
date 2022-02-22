@@ -16,15 +16,14 @@ class Binomial():
         else:
             if len(data) < 2:
                 raise ValueError("data must contain multiple values")
-            elif type(data) is not list:
+            if type(data) is not list:
                 raise TypeError("data must be a list")
-            else:
-                mean = float(sum(data) / len(data))
-                dev = [(i - mean) ** 2 for i in data]
-                vari = sum(dev) / len(data)
-                q = vari / mean
-                p = 1 - q
-                n = round(mean / p)
-                p = float(mean / n)
-                self.n = n
-                self.p = p
+            mean = float(sum(data) / len(data))
+            dev = [(i - mean) ** 2 for i in data]
+            var = sum(dev) / len(data)
+            q = var / mean
+            p = 1 - q
+            n = round(mean / p)
+            p = float(mean / n)
+            self.n = n
+            self.p = p
