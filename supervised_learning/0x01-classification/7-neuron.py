@@ -56,13 +56,13 @@ class Neuron():
         """Calculates one pass of gradient descent on the neuron"""
         m = Y.shape[1]
         dz = np.subtract(A, Y)
-        dw = (1/ m) * np.matmul(dz, X.T)
+        dw = (1 / m) * np.matmul(X, dz.T)
         db = (1/m) * np.sum(dz)
         self.__W = self.__W - (alpha * dw.T)
         self.__b = self.__b - (alpha * db)
 
     def train(self, X, Y, iterations=5000, alpha=0.05, verbose=True, graph=True, step=100):
-        """trains the neuron by updating the private attributes __W, __b, and __A"""
+        """trains the neuron"""
         if type(iterations) is not int:
             raise TypeError("iterations must be an integer")
         if iterations <= 0:
@@ -83,7 +83,7 @@ class Neuron():
             if j % step == 0 or j == 0:
                 cost = self.cost(Y, self.__A)
                 new_list.append(cost)
-                #print(self.__W, self.__b)
+                # print(self.__W, self.__b)
                 print("Cost after {} iterations: {}".format(j, cost))
             if verbose is True:
                 cost = self.cost(Y, self.__A)
