@@ -1,4 +1,4 @@
-#!/usr/bin/ennv python3
+#!/usr/bin/env python3
 """function for deep nueral network"""
 import numpy as np
 
