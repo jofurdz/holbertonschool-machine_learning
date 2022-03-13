@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-import tensorflow as tf
 """function for creating layers for nueral network"""
+import tensorflow as tf
 
 
 def create_layer(prev, n, activation):

@@ -4,6 +4,7 @@ import tensorflow as tf
 
 
 def calculate_accuracy(y, y_pred):
+    """calculates accuracy of nueral network"""
     yMax = tf.argmax(y, axis=1)
     predMax = tf.argmax(y_pred, axis=1)
     samesies = tf.equal(predMax, yMax)
