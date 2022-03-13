@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """function for calculating loss using tensorflow"""
+import tensorflow as tf
 
 
 def calculate_loss(y, y_pred):
