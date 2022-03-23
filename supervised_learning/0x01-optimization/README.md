@@ -21,5 +21,6 @@
 * https://www.geeksforgeeks.org/how-to-calculate-moving-averages-in-python/#:~:text=1%3A%20Using%20Numpy-,Numpy%20module%20of%20Python%20provides%20an%20easy%20way%20to%20calculate,elements%20of%20the%20given%20array.
 * https://www.adamsmith.haus/python/answers/how-to-find-the-moving-average-of-a-list-in-python
 * https://www.youtube.com/watch?v=k8fTYJPd3_I
+* https://machinelearningmastery.com/gradient-descent-with-rmsprop-from-scratch/
 
 # Tasks
