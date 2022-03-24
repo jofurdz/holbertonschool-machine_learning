@@ -11,5 +11,5 @@ def f1_score(confusion):
     """calculates f1 score of confusion matrix"""
     sens = sensitivity(confusion)
     prec = precision(confusion)
-    score = 2 * ((sens * prec) / (sens + prec))
-    return (score)
+    score = ((sens * prec) / (sens + prec))
+    return (2 * score)
