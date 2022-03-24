@@ -5,7 +5,7 @@ import numpy as np
 
 def precision(confusion):
     """calculates precision of confusion matrix"""
-    positives = np.sum(confusion, axis=1)
+    positives = np.sum(confusion, axis=0)
     truePosi = np.diagonal(confusion)
     precision = truePosi / positives
     return (precision)
