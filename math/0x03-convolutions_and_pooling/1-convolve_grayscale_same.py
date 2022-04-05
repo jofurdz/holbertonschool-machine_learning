@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """function for performing convultion on greyscale images"""
+import numpy as np
 
 
 def convolve_grayscale_same(images, kernel):
