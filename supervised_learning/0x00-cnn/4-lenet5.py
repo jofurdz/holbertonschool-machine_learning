@@ -19,8 +19,7 @@ def lenet5(x, y):
                              activation='relu')(flat)
     layer2 = tf.layers.Dense(units=84, kernel_initializer=init,
                              activation='relu')(layer1)
-    layer3 = tf.layers.Dense(units=10, kernel_initializer=init,
-                             activation='softmax')(layer2)
+    layer3 = tf.layers.Dense(units=10, kernel_initializer=init)(layer2)
     prediction = layer3
     softmax = tf.nn.softmax(prediction)
     loss = tf.losses.softmax_cross_entropy(y, layer3)
