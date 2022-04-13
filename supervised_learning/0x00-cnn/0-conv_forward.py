@@ -21,8 +21,10 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     for x in range(nc):
         for y in range(ch):
             for z in range(cw):
+                j = y * sh
+                k = z * sw
                 convo[:, y, z, x] = np.sum(np.multiply(
                     W[:, :, :, x],
-                    pad_m[:, sh*y: sh*y + kh, sw*z: sw*z + kw]),
+                    pad_m[:, j:j+kh, k:k+kw]),
                     axis=(1, 2, 3)) + b[:, :, :, x]
     return activation(convo)
