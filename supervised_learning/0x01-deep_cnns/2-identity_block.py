@@ -5,7 +5,7 @@ import tensorflow.keras as K
 
 def identity_block(A_prev, filters):
     """builds identity block"""
-    init = K.initializers.he_normal()
+    init = K.initializers.he_normal(seed=None)
     F11, F3, F12 = filters
 
     c1 = K.layers.Conv2D(filters=F11, kernel_size=(1, 1), padding='same',
