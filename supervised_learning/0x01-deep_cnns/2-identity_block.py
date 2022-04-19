@@ -20,4 +20,5 @@ def identity_block(A_prev, filters):
                          kernel_initializer=init)(b2)
     b3 = K.layers.BatchNormalization(axis=3)(c3)
     add = K.layers.Add()([b3, A_prev])
-    return K.layers.Activation('relu')(add)
+    poopla = K.layers.Activation('relu')(add)
+    return poopla
