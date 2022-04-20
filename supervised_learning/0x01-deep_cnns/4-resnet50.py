@@ -15,7 +15,7 @@ def resnet50():
     a1 = K.layers.Activation('relu')(b1)
     p1 = K.layers.MaxPooling2D(pool_size=(3, 3), strides=(2, 2),
                                padding='same')(a1)
-    filters = [64, 64, 128]
+    filters = [64, 64, 256]
     pBlock = projection_block(p1, filters, s=1)
     iBlock1 = identity_block(pBlock, filters)
     iBlock2 = identity_block(iBlock1, filters)
