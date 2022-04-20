@@ -32,5 +32,5 @@ def inception_block(A_prev, filters):
                             activation='relu',
                             kernel_initializer=init)(pl)
     # connect time
-    concat = K.layers.Concatenate()([conv1, conv3, conv5, conv6])
+    concat = K.layers.Concatenate()([conv1, conv4, conv5, conv6])
     return concat
