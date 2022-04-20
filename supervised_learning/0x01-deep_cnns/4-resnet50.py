@@ -40,7 +40,7 @@ def resnet50():
     iBlock12 = identity_block(iBlock11, filters)
 
     p2 = K.layers.AveragePooling2D(pool_size=7, strides=1,
-                                   padding='same')(iBlock12)
+                                   padding='valid')(iBlock12)
     softmax = K.layers.Dense(units=1000, activation='softmax',
                              kernel_initializer=init)(p2)
     return K.Model(inputs=inputLayer, outputs=softmax)
