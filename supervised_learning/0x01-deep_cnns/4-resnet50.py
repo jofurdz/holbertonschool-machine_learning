@@ -9,8 +9,8 @@ def resnet50():
     """builds ResNet-50 architechture"""
     init = K.initializers.he_normal()
     inputLayer = K.Input(shape=(224, 224, 3))
-    c1 = K.layers.Conv2D(filters=64, kernel_size=(7, 7), padding='same',
-                         strides=(2, 2), kernel_initializer=init)(inputLayer)
+    c1 = K.layers.Conv2D(filters=64, kernel_size=7, padding='same',
+                         strides=2, kernel_initializer=init)(inputLayer)
     b1 = K.layers.BatchNormalization(axis=3)(c1)
     a1 = K.layers.Activation('relu')(b1)
     p1 = K.layers.MaxPooling2D(pool_size=(3, 3), strides=(2, 2),
@@ -39,7 +39,7 @@ def resnet50():
     iBlock11 = identity_block(pBlock3, filters)
     iBlock12 = identity_block(iBlock11, filters)
 
-    p2 = K.layers.AveragePooling2D(pool_size=(7, 7), strides=(1, 1),
+    p2 = K.layers.AveragePooling2D(pool_size=7, strides=1,
                                    padding='same')(iBlock12)
     softmax = K.layers.Dense(units=1000, activation='softmax',
                              kernel_initializer=init)(p2)
