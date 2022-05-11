@@ -81,6 +81,7 @@ class Yolo():
         return (boxes, box_confidence, class_probs)
 
     def filter_boxes(self, boxes, box_confidences, box_class_probs):
+        """creates filter boxes"""
         best_boxes, scores, classes = None, None, None
         for x in range(len(boxes)):
             box_score = box_confidences[x] * box_class_probs[x]
