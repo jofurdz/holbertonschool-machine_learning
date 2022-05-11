@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""contains class Yolo"""
 import tensorflow.keras.backend as backend
 import tensorflow as tf
 import tensorflow.keras as K
@@ -50,8 +51,8 @@ class Yolo():
             box_confidence.append(self.sigmoid(output[..., 4:5]))
             class_probs.append(self.sigmoid(output[..., 5:]))
 
-        inputW = self.model.input.shape[1]  # .value
-        inputH = self.model.input.shape[2]  # .value
+        inputW = self.model.input.shape[1].value
+        inputH = self.model.input.shape[2].value
 
         # Predicted boundary box
         for x, box in enumerate(boxes):
