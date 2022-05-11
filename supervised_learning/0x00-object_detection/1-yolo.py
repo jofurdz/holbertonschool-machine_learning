@@ -9,63 +9,98 @@ import numpy as np
 class Yolo():
     """creating class Yolo"""
     def __init__(self, model_path, classes_path, class_t, nms_t, anchors):
-        """initializing class Yolo"""
+        """
+           Init method for instanciating Yolo class.
+           Args:
+             model_path: path to Darknet keras model
+             classes_path: path to list of class names for
+               darknet model
+             class_t: float representing box score for initial
+               filtering step
+             nms_t: float representing IOU threshold for non-max
+               supression
+             anchors: numpy.ndarray - shape (outputs, anchor_boxes, 2)
+               containing all anchor boxes
+                 outputs: number of predictions made
+                 anchor_boxes: number of anchor boxes for each pred.
+                 2 => [anchor_box_width, anchor_box_height]
+        """
         self.model = K.models.load_model(model_path)
-        class_names = []
-        with open(classes_path, 'r') as file:
-            for name in file:
-                class_names.append(name.strip())
-        self.class_names = class_names
+        with open(classes_path, 'rt') as fd:
+            self.class_names = fd.read().rstrip('\n').split('\n')
         self.class_t = class_t
         self.nms_t = nms_t
         self.anchors = anchors
 
+    def sigmoid(self, arr):
+        """sigmoid activation function"""
+        return 1 / (1+np.exp(-1*arr))
+
     def process_outputs(self, outputs, image_size):
-        """Processses the output of the Darkent Model"""
-        def sigmoid(array):
-            """Sigmoid activation function"""
-            return 1 / (1 + np.exp(-1 * array))
+        """
+           Args:
+             outputs: numpy.ndarray - contains predictions from model
+               for single image.
+             image_size: numpy.ndarray - images original
+               size (image_height, image_width)
+           Return:
+              tuple - (boxes, box_confidence, box_class_probs)
+              boxes: numpy.ndarray - (grid_height, grid_width, anchorboxes, 4)
+                 4 => (x1, y1, x2, y2)
+              box_confidence: numpy.ndarray - shape
+                (grid_height, grid_width, anchor_boxes, 1)
+              box_class_probs: numpy.ndarray - shape
+                (grid_height, grid_width, anchor_boxes, classes)
+                contains class probabilities for each output
+        """
+        IH, IW = image_size[0], image_size[1]
+        boxes = [output[..., :4] for output in outputs]
+        box_confidence, class_probs = [], []
+        cornersX, cornersY = [], []
 
-        boxes, box_confidences, box_class_probs = [], [], []
-        image_width = self.model.input.shape[1]  # .value
-        image_height = self.model.input.shape[2]  # .value
+        for output in outputs:
+            # Organize grid cells
+            gridH, gridW, anchors = output.shape[:3]
+            cx = np.arange(gridW).reshape(1, gridW)
+            cx = np.repeat(cx, gridH, axis=0)
+            cy = np.arange(gridW).reshape(1, gridW)
+            cy = np.repeat(cy, gridH, axis=0).T
 
-        for i, output in enumerate(outputs):
-            output_boxes = output[..., :4]
-            grid_height, grid_width, anchors = output.shape[:3]
+            cornersX.append(
+                np.repeat(cx[..., np.newaxis], anchors, axis=2)
+                )
+            cornersY.append(
+                np.repeat(cy[..., np.newaxis], anchors, axis=2)
+                )
+            # box confidence and class probability activations
+            box_confidence.append(self.sigmoid(output[..., 4:5]))
+            class_probs.append(self.sigmoid(output[..., 5:]))
 
-            cx = np.arange(grid_width).reshape(1, grid_width)
-            cx = np.repeat(cx, grid_height, axis=0)
-            cx = np.repeat(cx[..., np.newaxis], anchors, axis=2)
-            cy = np.arange(grid_width).reshape(1, grid_width)
-            cy = np.repeat(cy, grid_height, axis=0).T
-            cy = np.repeat(cy[..., np.newaxis], anchors, axis=2)
+        inputW = self.model.input.shape[1].value
+        inputH = self.model.input.shape[2].value
 
-            tx = output_boxes[..., 0]
-            ty = output_boxes[..., 1]
-            tw = output_boxes[..., 2]
-            th = output_boxes[..., 3]
+        # Predicted boundary box
+        for x, box in enumerate(boxes):
+            bx = (
+                (self.sigmoid(box[..., 0])+cornersX[x])/outputs[x].shape[1]
+                )
+            by = (
+                (self.sigmoid(box[..., 1])+cornersY[x])/outputs[x].shape[0]
+                )
+            bw = (
+                (np.exp(box[..., 2])*self.anchors[x, :, 0])/inputW
+                )
+            bh = (
+                (np.exp(box[..., 3])*self.anchors[x, :, 1])/inputH
+                )
 
-            pw = self.anchors[i, :, 0]
-            ph = self.anchors[i, :, 1]
+            # x1
+            box[..., 0] = (bx - (bw * 0.5))*IW
+            # y1
+            box[..., 1] = (by - (bh * 0.5))*IH
+            # x2
+            box[..., 2] = (bx + (bw * 0.5))*IW
+            # y2
+            box[..., 3] = (by + (bh * 0.5))*IH
 
-            bx = (sigmoid(tx) + cx) / grid_width
-            by = (sigmoid(ty) + cy) / grid_height
-            bw = (pw * np.exp(tw)) / image_width
-            bh = (ph * np.exp(th)) / image_height
-
-            x1 = (bx - (bw / 2)) * image_size[1]
-            y1 = (by - (bh / 2)) * image_size[0]
-            x2 = (bx + (bw / 2)) * image_size[1]
-            y2 = (by + (bh / 2)) * image_size[0]
-
-            output_boxes[..., 0] = x1
-            output_boxes[..., 1] = y1
-            output_boxes[..., 2] = x2
-            output_boxes[..., 3] = y2
-
-            boxes.append(output_boxes)
-            box_confidences.append(sigmoid(output[..., 4:5]))
-            box_class_probs.append(sigmoid(output[..., 5:]))
-
-        return (boxes, box_confidences, box_class_probs)
+        return (boxes, box_confidence, class_probs)
