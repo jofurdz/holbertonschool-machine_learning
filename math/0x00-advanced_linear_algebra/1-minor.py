@@ -49,42 +49,27 @@ def deepcopy(matrix):
 
 def minor(matrix):
     """calculates minor of matrix"""
-    if matrix and matrix[0] and type(matrix) is list \
-            and all(type(sub) is list for sub in matrix):
-        width = len(matrix)
-        if matrix == [[]]:
-            raise ValueError("matrix must be a non-empty square matrix")
-        for height in matrix:
-            if width != len(height):
-                raise ValueError("matrix must be a non-empty square matrix")
-        if width == 1:
-            return [[1]]
-        elif width == 2:
-            return ([[int(matrix[1][1]), int(matrix[1][0])],
-                    [int(matrix[0][1]), int(matrix[0][0])]])
-        else:
-            newMatrix = deepcopy(matrix)
-            for i in range(len(matrix[0])):
-                for j in range(len(matrix[0])):
-                    subMatrix = []
-                    for row in range(len(matrix[0])):
-                        subMatrix.append([])
-                        for column in range(len(matrix[0])):
-                            if column != j and row != i:
-                                subMatrix[row].append(int(matrix[row][column]))
-                                # print(newMatrix[row][column], end=' ')
-                """            subMatrix[row].append(matrix[row][column])
-                    subMatrix.append([])
-                subMatrix.pop(0)
-                subMatrix.pop()
-                if i == 0 or i%2 == 0:
-                    det += (matrix[0][i] * determinant(subMatrix))
-                else:
-                    det -= (matrix[0][i] * determinant(subMatrix))
-                #print(subMatrix)"""
-            # return det
-            subMatrix = [x for x in subMatrix if x != []]
-            newMatrix[i][j] = determinant(subMatrix)
-        return newMatrix
-    else:
-        raise TypeError("matrix must be a list of lists")
+    if type(matrix) is not list or len(matrix) == 0:
+        raise TypeError('matrix must be a list of lists')
+    for row in matrix:
+        if type(row) is not list:
+            raise TypeError('matrix must be a list of lists')
+        if len(row) != len(matrix):
+            raise ValueError('matrix must be a non-empty square matrix')
+
+    if len(matrix) == 1:
+        return [[1]]
+
+    minor_matrix = []
+
+    for row in range(len(matrix)):
+        minor_row = []
+        for col in range(len(matrix)):
+            sub_matrix = [row.copy() for row in matrix]
+            sub_matrix.pop(row)  # Remove current row index
+            for i in range(len(sub_matrix)):
+                sub_matrix[i].pop(col)  # Remove current col index
+            minor_row.append(determinant(sub_matrix))
+        minor_matrix.append(minor_row)
+
+    return minor_matrix

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""function for determining the cofactor of a matrix"""
+"""function for determining the adjugate of matrix"""
 
 
 def determinant(matrix):
@@ -84,3 +84,13 @@ def cofactor(matrix):
             cofactor[row][column] *= pow(-1, row+column)
 
     return cofactor
+
+
+def adjugate(matrix):
+    """calculates adjugate of matrix"""
+    tempMatrix = cofactor(matrix)
+    adjugate = [[] for row in tempMatrix]
+    for row in range(len(tempMatrix)):
+        for column in range(len(tempMatrix)):
+            adjugate[column].append(tempMatrix[row][column])
+    return adjugate
