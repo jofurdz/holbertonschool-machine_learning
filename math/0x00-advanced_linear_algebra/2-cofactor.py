@@ -91,6 +91,7 @@ def minor(matrix):
 
 
 def cofactor(matrix):
+    """calculates cofactor of given matrix"""
     cofactor = minor(matrix)
 
     for row in range(len(cofactor)):
