@@ -4,6 +4,7 @@ import numpy as np
 
 
 class MultiNormal():
+    """creates class MultiNormal"""
     def __init__(self, data):
         """initializes mean and covariance matrix of class"""
         mean, cov = self.mean_cov(data.T)
