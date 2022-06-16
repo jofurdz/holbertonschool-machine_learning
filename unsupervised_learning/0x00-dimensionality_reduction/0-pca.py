@@ -5,16 +5,23 @@ import numpy as np
 
 def pca(X, var=0.95):
     """performs PCA on dataset"""
-    U, Sig, V = np.linalg.svd(X)
-    summy = np.sum(Sig)
-    cummy = np.cumsum(Sig)
+    U, vals, eig = np.linalg.svd(X)
 
-    newMat = cummy / summy
+    idx = np.argsort(vals)[::-1]
+    vals = vals[idx]
+    eig = (eig.T)[:, idx]
 
-    for count, value in enumerate(newMat):
-        if value >= var:
-            trunc = count + 1
-            print(trunc, value)
-            break
-    # print(np.shape(V))
-    return V.T[:, :trunc]
+    var_explained = []
+    eig_sum = vals.sum()
+
+    for i in range(vals.shape[0]):
+        var_explained.append(vals[i]/eig_sum)
+
+    # Cumulative sum
+    Csum = np.cumsum(var_explained)
+
+    for i in range(Csum.shape[0]):
+        if Csum[i] >= var:
+            return eig[:, :i+1]
+
+    return eig
