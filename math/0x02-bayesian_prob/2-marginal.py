@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""function for calculating intersectionality"""
+"""function for calculating marginal probability"""
 import numpy as np
 
 
@@ -49,3 +49,8 @@ def intersection(x, n, P, Pr):
     if False in np.isclose([Pr.sum()], [1]):
         raise ValueError("Pr must sum to 1")
     return(Pr * likelihood(x, n, P))
+
+
+def marginal(x, n, P, Pr):
+    """calculates the marginal probability"""
+    return (np.sum(intersection(x, n, P, Pr)))
