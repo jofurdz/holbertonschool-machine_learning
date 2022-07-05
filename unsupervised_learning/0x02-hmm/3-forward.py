@@ -4,6 +4,7 @@ import numpy as np
 
 
 def forward(Observation, Emission, Transition, Initial):
+    """performs the forward algorithm for a hmm"""
     T = Observation.shape[0]
     N, M = Emission.shape
 
