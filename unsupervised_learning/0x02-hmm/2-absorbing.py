@@ -10,7 +10,7 @@ def absorbing(P):
     state1, state2 = P.shape
 
     # print(P.shape)
-    print(P)
+    # print(P)
 
     if len(P.shape) != 2:
         return None
