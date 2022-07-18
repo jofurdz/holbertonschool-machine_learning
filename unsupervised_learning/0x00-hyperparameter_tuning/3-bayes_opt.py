@@ -10,7 +10,7 @@ class BayesianOptimization():
         """initializing class"""
         min, max = bounds
         self.f = f
-        self.gp = GaussianProcess(X_init, Y_init, l, sigma_f)
+        self.gp = GP(X_init, Y_init, l, sigma_f)
         self.xsi = xsi
         self.minimize = minimize
         self.X_s = np.linspace(min, max).reshape(-1, 1)
