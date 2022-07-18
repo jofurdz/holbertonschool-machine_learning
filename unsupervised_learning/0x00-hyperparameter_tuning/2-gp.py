@@ -30,7 +30,7 @@ class GaussianProcess():
 
     def update(self, X_new, Y_new):
         """updates Gaussian Process"""
-        print(self.X.shape, self.Y.shape)
+        # print(self.X.shape, self.Y.shape)
         self.X = np.append(self.X, X_new).reshape(-1, 1)
         self.Y = np.append(self.Y, Y_new).reshape(-1, 1)
         self.K = self.kernel(self.X, self.X)
