@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """module containing class BayesianOptimization"""
 import numpy as np
+from scipy.stats import norm
 GP = __import__('2-gp').GaussianProcess
 
 
@@ -15,3 +16,6 @@ class BayesianOptimization():
         self.xsi = xsi
         self.minimize = minimize
         self.X_s = np.linspace(min, max).reshape(-1, 1)
+
+    def acquisition(self):
+        """expected improvement acquisition function"""
