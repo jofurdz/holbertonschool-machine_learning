@@ -1,20 +1,21 @@
 #!/usr/bin/env python3
-"""function for vanilla autoencoder"""
+"""function for building a sparse autoencoder"""
 import tensorflow.keras as keras
 
 
-def autoencoder(input_dims, hidden_layers, latent_dims):
-    """creates a vanilla autoencoder"""
+def autoencoder(input_dims, hidden_layers, latent_dims, lambtha):
+    """creating a sparse autoencoder"""
     input = keras.layers.Input(shape=(input_dims,))
     encodedInput = keras.layers.Dense(hidden_layers[0],
                                       activation='relu')(input)
+    sparse = keras.regularizers.l1(lambtha)
 
     for x in range(1, len(hidden_layers)):
         encodedInput = keras.layers.Dense(hidden_layers[x],
                                           activation='relu')(encodedInput)
 
-    encodedInput = keras.layers.Dense(latent_dims,
-                                      activation='relu')(encodedInput)
+    encodedInput = keras.layers.Dense(latent_dims, activation='relu',
+                                      activity_regularizer=sparse)(encodedInput)
     decoded = keras.layers.Input(shape=(latent_dims,))
     decodedInput = decoded
 
