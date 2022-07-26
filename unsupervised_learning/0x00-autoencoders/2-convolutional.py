@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """function for building convolutional autoencoder"""
-from sqlite3 import enable_callback_tracebacks
 import tensorflow.keras as keras
 
 
