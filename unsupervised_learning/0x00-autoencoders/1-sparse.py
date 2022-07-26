@@ -6,18 +6,17 @@ import tensorflow.keras as keras
 def autoencoder(input_dims, hidden_layers, latent_dims, lambtha):
     """creating a sparse autoencoder"""
     input = keras.layers.Input(shape=(input_dims,))
-    encodedInput = keras.layers.Dense(hidden_layers[0],
-                                      activation='relu')(input)
+    encoded = keras.layers.Dense(hidden_layers[0],
+                                 activation='relu')(input)
     sparse = keras.regularizers.l1(lambtha)
 
     for x in range(1, len(hidden_layers)):
-        encodedInput = keras.layers.Dense(hidden_layers[x],
-                                          activation='relu')(encodedInput)
+        encoded = keras.layers.Dense(hidden_layers[x],
+                                     activation='relu')(encoded)
 
-    encodedInput = keras.layers.Dense(latent_dims,
-                                      activation='relu',
-                                      activity_regularizer=sparse)
-    (encodedInput)
+    encoded = keras.layers.Dense(latent_dims,
+                                 activation='relu',
+                                 activity_regularizer=sparse)(encoded)
     decoded = keras.layers.Input(shape=(latent_dims,))
     decodedInput = decoded
 
@@ -26,7 +25,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims, lambtha):
                                      activation='relu')(decoded)
 
     decoded = keras.layers.Dense(input_dims, activation='sigmoid')(decoded)
-    encoder = keras.models.Model(input, encodedInput)
+    encoder = keras.models.Model(input, encoded)
     decoder = keras.models.Model(decodedInput, decoded)
 
     autoencoder = keras.models.Model(input, decoder(encoder(input)))
