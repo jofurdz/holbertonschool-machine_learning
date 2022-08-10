@@ -4,9 +4,9 @@ import numpy as np
 
 
 class LSTMCell():
-    # creating class
+    """creating class"""
     def __init__(self, i, h, o):
-        # initializing class
+        """initializing class"""
         self.Wf = np.random.randn(i + h, h)
         self.Wu = np.random.randn(i + h, h)
         self.Wc = np.random.randn(i + h, h)
