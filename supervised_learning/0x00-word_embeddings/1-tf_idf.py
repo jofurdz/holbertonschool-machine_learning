@@ -8,5 +8,5 @@ def tf_idf(sentences, vocab=None):
     tfidfVectorizer = TfidfVectorizer(vocabulary=vocab)
     newArray = tfidfVectorizer.fit_transform(sentences)
     embeddings = newArray.toarray()
-    features = tfidfVectorizer.get_feature_names_out()
+    features = tfidfVectorizer.get_feature_names()
     return embeddings, features
