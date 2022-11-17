@@ -15,8 +15,8 @@ def sentientPlanets():
             if species['homeworld'] is not None and \
                (species['classification'] == 'sentient' or
                species['designation'] == 'sentient'):
-                 planets.append(requests.get(
+                planets.append(requests.get(
                     species['homeworld']
-                 ).json()['name'])
+                ).json()['name'])
         url = r.get('next')
     return planets
