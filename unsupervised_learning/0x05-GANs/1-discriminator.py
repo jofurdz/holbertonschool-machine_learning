@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""contains class Discriminator"""
+"""module contains class Discriminator"""
 import numpy as np
 import torch
 import torch.nn as nn
