@@ -10,26 +10,26 @@
 
 Math projects focused on developing skills for machine learning and data science
 Libraries used:
-*Numpy
-*Matplotlib
+* Numpy
+* Matplotlib
 
 ### [Supervised Learning](https://github.com/jofurdz/holbertonschool-machine_learning/tree/master/supervised_learning)
 
 Projects focused on gaining an understanding of supervised learning including optimization, regularization, CNNs, RNNs and image classification
 Libraries used:
-*Numpy
-*Tensorflow
-*Keras
-*Pandas
-*Matplotlib
-*ScikitLearn
+* Numpy
+* Tensorflow
+* Keras
+* Pandas
+* Matplotlib
+* ScikitLearn
 
 ### [Unsupervided Learning](https://github.com/jofurdz/holbertonschool-machine_learning/tree/master/unsupervised_learning)
 
 Projects focused on gaining an understanding of unsupervised learning methods including hyperparameter tuning, dimensionality reduction, GANs and autoencoders
 Libraries used:
-*Numpy
-*Tensorflow
-*Keras
-*Pandas
-*Matplotlib
+* Numpy
+* Tensorflow
+* Keras
+* Pandas
+* Matplotlib
