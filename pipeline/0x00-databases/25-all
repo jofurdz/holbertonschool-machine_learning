@@ -1,0 +1,2 @@
+// Mongo list all documents
+db.school.find();

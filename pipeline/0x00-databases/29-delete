@@ -1,0 +1,2 @@
+// Mongo delete entry from db
+db.school.deleteMany({"name":"Holberton school"});

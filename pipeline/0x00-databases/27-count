@@ -1,0 +1,2 @@
+// Mongo count number of documents
+db.school.count();
